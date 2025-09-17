@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Room Assignment</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 40px; }
+    form { margin-bottom: 20px; }
+    label { display: block; margin-top: 10px; }
+    input { padding: 5px; margin-top: 5px; }
+    button { margin-top: 10px; padding: 8px 16px; }
+    table { border-collapse: collapse; margin-top: 20px; }
+    th, td { border: 1px solid #ccc; padding: 8px; text-align: center; }
+  </style>
+</head>
+<body>
+  <h1>Room Assignment Form</h1>
+
+  <form method="POST" action="/distribute">
+    <label>Rooms: <input type="number" name="rooms" required></label>
+    <label>Adults: <input type="number" name="adults" required></label>
+    <label>Seniors: <input type="number" name="seniors" required></label>
+    <label>Children: <input type="number" name="children" required></label>
+    <button type="submit">Assign</button>
+  </form>
+
+  <% if (result && result.length > 0) { %>
+    <h2>Room Distribution</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Room</th>
+          <th>Adults</th>
+          <th>Seniors</th>
+          <th>Children</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% result.forEach((room, index) => { %>
+          <tr>
+            <td><%= index + 1 %></td>
+            <td><%= room.adults %></td>
+            <td><%= room.seniors %></td>
+            <td><%= room.children %></td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  <% } else if (result && result.length === 0) { %>
+    <p style="color:red;">No valid distribution possible!</p>
+  <% } %>
+</body>
+</html>
